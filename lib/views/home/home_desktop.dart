@@ -52,29 +52,44 @@ class _HomeDesktop extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  primary: Colors.black,
+                              // TextButton(
+                              //   style: TextButton.styleFrom(
+                              //     primary: Colors.black,
+                              //     textStyle: kFOpenSans,
+                              //   ),
+                              //   onPressed: () {},
+                              //   child: const Text("Already Placed"),
+                              // ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xFFA958E9),
                                   textStyle: kFOpenSans,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 20,
+                                  ),
                                 ),
-                                onPressed: () {},
-                                child: const Text("Already Placed"),
+                                onPressed: () {
+                                  // var data = viewModel.getPlacedStudents;
+                                  // print(data);
+                                  printFunction();
+                                },
+                                child: const Text('Preview'),
                               ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  primary: Colors.black,
-                                  textStyle: kFOpenSans,
-                                ),
-                                onPressed: () {},
-                                child: const Text("Update"),
+                              const SizedBox(
+                                width: 20,
                               ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  primary: Colors.black,
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xFFE50914),
                                   textStyle: kFOpenSans,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 20,
+                                  ),
                                 ),
                                 onPressed: () {},
-                                child: const Text("Delete"),
+                                child: const Text("Download PDF"),
                               ),
                             ],
                           )
@@ -96,28 +111,32 @@ class _HomeDesktop extends StatelessWidget {
                               children: [
                                 buildTextField(
                                   label: "Reg No",
-                                  child: buildRegNo(viewModel, regnoEditingController),
+                                  child: buildRegNo(
+                                      viewModel, regnoEditingController),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildTextField(
                                   label: "Name",
-                                  child: buildName(viewModel, nameEditingController),
+                                  child: buildName(
+                                      viewModel, nameEditingController),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildTextField(
                                   label: "Company",
-                                  child: buildCompany(viewModel, companyEditingController),
+                                  child: buildCompany(
+                                      viewModel, companyEditingController),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildTextField(
                                   label: "Package",
-                                  child: buildPackage(viewModel, packageEditingController),
+                                  child: buildPackage(
+                                      viewModel, packageEditingController),
                                 ),
                                 const SizedBox(
                                   height: 30,
@@ -126,9 +145,8 @@ class _HomeDesktop extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                     primary: const Color(0xFFA958E9),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 20),                                  
+                                        horizontal: 30, vertical: 20),
                                   ),
-
                                   onPressed: () {
                                     final isVaild =
                                         formKey.currentState.validate();
@@ -137,10 +155,15 @@ class _HomeDesktop extends StatelessWidget {
                                       viewModel.uploadDataToFirebase(context);
                                     }
                                   },
-                                  child: viewModel.isLoading ? const CircularProgressIndicator(color: Colors.white, strokeWidth: 2,) : Text(
-                                    'Add',
-                                    style: kFMontserrat,
-                                  ),
+                                  child: viewModel.isLoading
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 2,
+                                        )
+                                      : Text(
+                                          'Add',
+                                          style: kFMontserrat,
+                                        ),
                                 ),
                               ],
                             ),
@@ -181,8 +204,12 @@ class _HomeDesktop extends StatelessWidget {
           //   print(element['package']);
 
           // }
-        // });
-          var data = await FirebaseFirestore.instance.collection('placed').orderBy('createdAt', descending: false).get().then((QuerySnapshot querySnapshot)  {
+          // });
+          var data = await FirebaseFirestore.instance
+              .collection('placed')
+              .orderBy('createdAt', descending: false)
+              .get()
+              .then((QuerySnapshot querySnapshot) {
             var res = querySnapshot.docs.map((e) => e.data());
             print(res);
           });
