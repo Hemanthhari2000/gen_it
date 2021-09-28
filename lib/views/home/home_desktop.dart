@@ -70,11 +70,18 @@ class _HomeDesktop extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // var data = viewModel.getPlacedStudents;
-                                  // print(data);
-                                  printFunction();
+                                  viewModel.previewButtonOnPressed();
                                 },
-                                child: const Text('Preview'),
+                                child: viewModel.isPreviewLoading
+                                    ? const SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 1,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : const Text('Preview'),
                               ),
                               const SizedBox(
                                 width: 20,
@@ -205,14 +212,15 @@ class _HomeDesktop extends StatelessWidget {
 
           // }
           // });
-          var data = await FirebaseFirestore.instance
-              .collection('placed')
-              .orderBy('createdAt', descending: false)
-              .get()
-              .then((QuerySnapshot querySnapshot) {
-            var res = querySnapshot.docs.map((e) => e.data());
-            print(res);
-          });
+          // var data = await FirebaseFirestore.instance
+          //     .collection('placed')
+          //     .orderBy('createdAt', descending: false)
+          //     .get()
+          //     .then((QuerySnapshot querySnapshot) {
+          //   var res = querySnapshot.docs.map((e) => e.data());
+          //   print(res);
+          // });
+          // viewModel.test();
         },
       ),
     );
