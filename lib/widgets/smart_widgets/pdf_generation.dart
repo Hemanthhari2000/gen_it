@@ -45,8 +45,8 @@ Future<Uint8List> generatePdf(
                       children: [
                         pw.Image(imgs[i], width: 80, height: 100),
                         pw.SizedBox(height: 5),
-                        pw.Text(placedStudents[i].name),
                         pw.Text(placedStudents[i].regno),
+                        pw.Text(placedStudents[i].name),
                         pw.Text(placedStudents[i].company),
                         pw.Text('${placedStudents[i].package} LPA'),
                         pw.SizedBox(height: 10),

@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:gen_it/core/models/student_model.dart';
+import 'package:gen_it/views/home/home_utils.dart';
 import 'package:gen_it/widgets/smart_widgets/pdf_generation.dart';
 import 'package:logger/logger.dart';
 import 'package:pdf/pdf.dart';
@@ -83,7 +84,13 @@ class HomeViewModel extends BaseViewModel {
   uploadDataToFirebase(BuildContext context) async {
     _isLoading = true;
     notifyListeners();
+    // var fileName = inputData['regno'].substring(inputData['regno'].length - 4);
+    String fileName = regTOroll[inputData['regno']];
+    String downloadURL = await FirebaseStorage.instance
+        .ref('students/$fileName.JPG')
+        .getDownloadURL();
 
+    await setInputData(key: "imageURL", val: downloadURL);
     await setInputData(key: "createdAt", val: FieldValue.serverTimestamp());
 
     await FirebaseFirestore.instance.collection('placed').add(inputData);
@@ -124,5 +131,11 @@ class HomeViewModel extends BaseViewModel {
     );
     _previewLoading = false;
     notifyListeners();
+  }
+
+  test() {
+    print(regTOroll["312318104059"]);
+    print(regTOroll["312318104043"]);
+    print(regTOroll["312318104056"]);
   }
 }

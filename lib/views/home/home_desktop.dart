@@ -39,7 +39,7 @@ class _HomeDesktop extends StatelessWidget {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'images/logo.png',
+                                  'assets/images/logo.png',
                                   height: 30,
                                   fit: BoxFit.cover,
                                 ),
@@ -52,14 +52,6 @@ class _HomeDesktop extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              // TextButton(
-                              //   style: TextButton.styleFrom(
-                              //     primary: Colors.black,
-                              //     textStyle: kFOpenSans,
-                              //   ),
-                              //   onPressed: () {},
-                              //   child: const Text("Already Placed"),
-                              // ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: const Color(0xFFA958E9),
@@ -220,7 +212,7 @@ class _HomeDesktop extends StatelessWidget {
           //   var res = querySnapshot.docs.map((e) => e.data());
           //   print(res);
           // });
-          // viewModel.test();
+          viewModel.test();
         },
       ),
     );
