@@ -127,7 +127,7 @@ class HomeViewModel extends BaseViewModel {
       onLayout: (PdfPageFormat format) async {
         return await generatePdf(format, getPlacedStudents);
       },
-      format: PdfPageFormat.a4,
+      format: PdfPageFormat.a3,
     );
     _previewLoading = false;
     notifyListeners();

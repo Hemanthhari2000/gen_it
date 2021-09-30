@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:gen_it/core/models/student_model.dart';
+import 'package:gen_it/theme/constants.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -27,43 +29,95 @@ Future<Uint8List> generatePdf(
     imgs.add(netImage);
   }
 
+  // pdf.addPage(
+  //   pw.Page(
+  //     pageFormat: format,
+  //     build: (context) {
+  //       return pw.Column(
+  //         children: [
+  //           pw.Image(bannerImage),
+  //           pw.SizedBox(height: 50),
+  //           // pw.Wrap(
+  //           //   crossAxisAlignment: pw.WrapCrossAlignment.center,
+  //           //   spacing: 40,
+  //           //   children: [
+  //           //     for (var i = 0; i < placedStudents.length; i++)
+  //           //       pw.Container(
+  //           //         child: pw.Column(
+  //           //           children: [
+  //           //             pw.Image(imgs[i], width: 80, height: 100),
+  //           //             pw.SizedBox(height: 5),
+  //           //             pw.Text(placedStudents[i].regno),
+  //           //             pw.Text(placedStudents[i].name),
+  //           //             pw.Text(placedStudents[i].company),
+  //           //             pw.Text('${placedStudents[i].package} LPA'),
+  //           //             pw.SizedBox(height: 10),
+  //           //           ],
+  //           //         ),
+  //           //       ),
+  //           //   ],
+  //           // ),
+
+  //           pw.GridView(
+  //             crossAxisCount: 5,
+  //             crossAxisSpacing: 1,
+  //             childAspectRatio: 1.4,
+  //             children: [
+  //               for (var i = 0; i < placedStudents.length; i++)
+  //                 pw.Column(
+  //                   children: [
+  //                     pw.Image(imgs[i], width: 80, height: 100),
+  //                     pw.SizedBox(height: 5),
+  //                     pw.Text(placedStudents[i].regno),
+  //                     pw.Text(placedStudents[i].name),
+  //                     pw.Text(placedStudents[i].company),
+  //                     pw.Text('${placedStudents[i].package} LPA'),
+  //                     pw.SizedBox(height: 10),
+  //                   ],
+  //                 ),
+  //             ],
+  //           ),
+
+  //           pw.Container(height: 50),
+  //           pw.Center(
+  //             child: pw.Text('** CONGRAGULATIONS STUDENTS! **',
+  //                 style:
+  //                     const pw.TextStyle(color: PdfColor.fromInt(0xFFE50914))),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   ),
+  // );
+
   pdf.addPage(
-    pw.Page(
+    pw.MultiPage(
       pageFormat: format,
-      build: (context) {
-        return pw.Column(
+      build: (pw.Context context) => [
+        // pw.Image(bannerImage),
+        pw.Align(
+          alignment: pw.Alignment.topCenter,
+          child: pw.Image(bannerImage),
+        ),
+        pw.SizedBox(height: 30),
+        pw.GridView(
+          crossAxisCount: 5,
+          crossAxisSpacing: 1,
+          childAspectRatio: 1.4,
           children: [
-            pw.Image(bannerImage),
-            pw.SizedBox(height: 50),
-            pw.Wrap(
-              crossAxisAlignment: pw.WrapCrossAlignment.center,
-              spacing: 20,
-              children: [
-                for (var i = 0; i < placedStudents.length; i++)
-                  pw.Container(
-                    child: pw.Column(
-                      children: [
-                        pw.Image(imgs[i], width: 80, height: 100),
-                        pw.SizedBox(height: 5),
-                        pw.Text(placedStudents[i].regno),
-                        pw.Text(placedStudents[i].name),
-                        pw.Text(placedStudents[i].company),
-                        pw.Text('${placedStudents[i].package} LPA'),
-                        pw.SizedBox(height: 10),
-                      ],
-                    ),
-                  ),
-              ],
-            ),
-            pw.Container(height: 50),
-            pw.Center(
-              child: pw.Text('** CONGRAGULATIONS STUDENTS! **',
-                  style:
-                      const pw.TextStyle(color: PdfColor.fromInt(0xFFE50914))),
-            ),
+            for (var i = 0; i < placedStudents.length; i++)
+              pw.Column(children: [
+                pw.Image(imgs[i], width: 80, height: 100),
+                pw.SizedBox(height: 5),
+                pw.Text(placedStudents[i].regno),
+                pw.Text(placedStudents[i].name),
+                pw.Text(placedStudents[i].company),
+                pw.Text('${placedStudents[i].package} LPA'),
+                pw.SizedBox(height: 10),
+              ]),
           ],
-        );
-      },
+        ),
+      ],
     ),
   );
 
